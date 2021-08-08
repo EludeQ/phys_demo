@@ -9,7 +9,7 @@
 #include "phys/particles/particle_drag.h"
 #include "phys/particles/particle_spring.h"
 #include "phys/particles/particle_anchored_spring.h"
-#include "phys/particles/force_registry.h"
+#include "phys/particles/particle_force_registry.h"
 
 int main(void)
 {
@@ -36,7 +36,7 @@ int main(void)
 
     std::vector<std::shared_ptr<Particle>> particles;
 
-    ForceRegistry registry;
+    ParticleForceRegistry registry;
     auto gravity = std::make_shared<ParticleGravity>(glm::vec3(0.0, -20.0f, 0.0));
     auto drag = std::make_shared<ParticleDrag>(5.0, 1.0);
 

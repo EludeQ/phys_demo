@@ -8,7 +8,7 @@
 
 #include "particle.h"
 
-class ForceGenerator
+class ParticleForceGenerator
 {
 public:
     // Calculate and update force applied to particle.

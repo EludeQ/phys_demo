@@ -6,10 +6,10 @@
 
 #include <utility>
 
-#include "force_generator.h"
+#include "particle_force_generator.h"
 #include "precision.h"
 
-class ParticleSpring : public ForceGenerator
+class ParticleSpring : public ParticleForceGenerator
 {
     // Particle on the other end of the spring
     std::shared_ptr<Particle> m_other;

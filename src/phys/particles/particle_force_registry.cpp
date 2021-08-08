@@ -2,11 +2,11 @@
 // Created on 14/06/2021.
 //
 
-#include "force_registry.h"
+#include "particle_force_registry.h"
 
 #include <iostream>
 
-void ForceRegistry::add(const std::shared_ptr<Particle>& p_particle, const std::shared_ptr<ForceGenerator>& p_fg)
+void ParticleForceRegistry::add(const std::shared_ptr<Particle>& p_particle, const std::shared_ptr<ParticleForceGenerator>& p_fg)
 {
     Registration registration;
     registration.particle = p_particle;
@@ -15,7 +15,7 @@ void ForceRegistry::add(const std::shared_ptr<Particle>& p_particle, const std::
     registry.push_back(registration);
 }
 
-void ForceRegistry::remove(const std::shared_ptr<Particle>& p_particle, const std::shared_ptr<ForceGenerator>& p_fg)
+void ParticleForceRegistry::remove(const std::shared_ptr<Particle>& p_particle, const std::shared_ptr<ParticleForceGenerator>& p_fg)
 {
     for (auto it = registry.begin(); it != registry.end(); ++it)
     {
@@ -26,7 +26,7 @@ void ForceRegistry::remove(const std::shared_ptr<Particle>& p_particle, const st
     }
 }
 
-void ForceRegistry::update_forces(real duration)
+void ParticleForceRegistry::update_forces(real duration)
 {
     for (auto it = registry.begin(); it != registry.end(); ++it)
     {

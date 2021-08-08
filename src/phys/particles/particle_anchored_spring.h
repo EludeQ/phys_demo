@@ -4,9 +4,9 @@
 
 #pragma once
 
-#include "force_generator.h"
+#include "particle_force_generator.h"
 
-class ParticleAnchoredSpring : public ForceGenerator
+class ParticleAnchoredSpring : public ParticleForceGenerator
 {
 protected:
     glm::vec3 m_anchor;

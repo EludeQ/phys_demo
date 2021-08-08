@@ -7,25 +7,25 @@
 #include <vector>
 #include <memory>
 
-#include "force_generator.h"
+#include "particle_force_generator.h"
 #include "particle.h"
 
-class ForceRegistry
+class ParticleForceRegistry
 {
 protected:
     struct Registration
     {
         std::shared_ptr<Particle> particle;
-        std::shared_ptr<ForceGenerator> generator;
+        std::shared_ptr<ParticleForceGenerator> generator;
     };
 
     std::vector<Registration> registry;
 public:
     // Adds particle-forcegen pair.
-    void add(const std::shared_ptr<Particle>& p_particle, const std::shared_ptr<ForceGenerator>& p_fg);
+    void add(const std::shared_ptr<Particle>& p_particle, const std::shared_ptr<ParticleForceGenerator>& p_fg);
 
     // Removes particle-forcegen pair.
-    void remove(const std::shared_ptr<Particle>& p_particle, const std::shared_ptr<ForceGenerator>& p_fg);
+    void remove(const std::shared_ptr<Particle>& p_particle, const std::shared_ptr<ParticleForceGenerator>& p_fg);
 
     // Clears particle-forcegen registery.
     void clear();

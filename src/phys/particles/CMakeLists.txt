@@ -1,7 +1,7 @@
 target_sources(phys_demo
         PRIVATE
-        force_generator.cpp
-        force_registry.cpp
+        particle_force_generator.cpp
+        particle_force_registry.cpp
         particle.cpp
         particle_gravity.cpp
         particle_drag.cpp

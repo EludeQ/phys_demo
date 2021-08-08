@@ -4,9 +4,9 @@
 
 #pragma once
 
-#include "force_generator.h"
+#include "particle_force_generator.h"
 
-class ParticleDrag : public ForceGenerator
+class ParticleDrag : public ParticleForceGenerator
 {
     // Velocity Drag Coefficient.
     real k1;

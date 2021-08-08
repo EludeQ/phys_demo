@@ -6,9 +6,9 @@
 
 #include <glm/vec3.hpp>
 
-#include "force_generator.h"
+#include "particle_force_generator.h"
 
-class ParticleGravity : public ForceGenerator
+class ParticleGravity : public ParticleForceGenerator
 {
     glm::vec3 gravity;
 
