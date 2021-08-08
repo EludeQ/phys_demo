@@ -17,6 +17,6 @@ class ParticleDrag : public ParticleForceGenerator
 public:
     ParticleDrag(const real p_k1, const real p_k2) : k1(p_k1), k2(p_k2) {}
 
-    void update_force(std::shared_ptr<Particle> particle, real duration) override;
+    void update_force(std::shared_ptr<Particle> p_particle, real p_duration) override;
 };
 

@@ -15,6 +15,6 @@ class ParticleGravity : public ParticleForceGenerator
 public:
     ParticleGravity(const glm::vec3 &p_gravity) : gravity(p_gravity) {}
 
-    void update_force(std::shared_ptr<Particle> particle, real duration) override;
+    void update_force(std::shared_ptr<Particle> p_particle, real p_duration) override;
 };
 

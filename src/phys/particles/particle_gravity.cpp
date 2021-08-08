@@ -8,11 +8,11 @@
 
 #include "particle.h"
 
-void ParticleGravity::update_force(std::shared_ptr<Particle> particle, real duration)
+void ParticleGravity::update_force(std::shared_ptr<Particle> p_particle, real p_duration)
 {
-    if (!particle->has_finite_mass()) {
+    if (!p_particle->has_finite_mass()) {
         return;
     }
 
-    particle->add_force(gravity * particle->get_mass());
+    p_particle->add_force(gravity * p_particle->get_mass());
 }

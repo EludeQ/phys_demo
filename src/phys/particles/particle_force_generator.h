@@ -11,7 +11,7 @@
 class ParticleForceGenerator
 {
 public:
-    // Calculate and update force applied to particle.
-    virtual void update_force(std::shared_ptr<Particle> particle, real duration) = 0;
+    // Calculate and update force applied to p_particle.
+    virtual void update_force(std::shared_ptr<Particle> p_particle, real p_duration) = 0;
 };
 

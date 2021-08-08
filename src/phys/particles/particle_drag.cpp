@@ -6,9 +6,9 @@
 
 #include <glm/glm.hpp>
 
-void ParticleDrag::update_force(std::shared_ptr<Particle> particle, real duration)
+void ParticleDrag::update_force(std::shared_ptr<Particle> p_particle, real p_duration)
 {
-    glm::vec3 force = particle->get_velocity();
+    glm::vec3 force = p_particle->get_velocity();
 
     // Calculate drag coefficient
     real drag_coeff = glm::length(force);
@@ -20,6 +20,6 @@ void ParticleDrag::update_force(std::shared_ptr<Particle> particle, real duratio
     {
         force = glm::normalize(force);
         force *= -drag_coeff;
-        particle->add_force(force);
+        p_particle->add_force(force);
     }
 }
