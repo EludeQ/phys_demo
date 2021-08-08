@@ -39,6 +39,7 @@ public:
     void set_damping(const real& p_damping);
     void set_mass(const real& p_mass);
     void set_inverse_mass(const real& p_inverseMass);
+    void set_position(const glm::vec3& p_position);
 
     // Adds force to particle. Is only applied at the next iteration.
     void add_force(const glm::vec3& p_force);

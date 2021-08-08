@@ -14,10 +14,16 @@ CMake version `3.19` or newer must be installed.
 
 I believe it should 'just work' on Windows, but on Linux additional libraries will be needed:
 
-### For Linux (Debian/Ubuntu)
+### For Linux
 
 Install the required libraries:
+
+Debian/Ubuntu:
 ```
 sudo apt install libasound2-dev mesa-common-dev libx11-dev libxrandr-dev libxi-dev xorg-dev libgl1-mesa-dev libglu1-mesa-dev
+```
+Arch Linux:
+```
+sudo pacman -S alsa-lib mesa libx11 libxrandr libxi libxcursor libxinerama
 ```
 (These are required to compile Raylib.)

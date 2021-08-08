@@ -7,6 +7,8 @@
 #include "phys/particles/particle.h"
 #include "phys/particles/particle_gravity.h"
 #include "phys/particles/particle_drag.h"
+#include "phys/particles/particle_spring.h"
+#include "phys/particles/particle_anchored_spring.h"
 #include "phys/particles/force_registry.h"
 
 int main(void)
@@ -26,7 +28,7 @@ int main(void)
     camera.up = (Vector3){ 0.0f, 1.0f, 0.0f };
     camera.fovy = 75.0f;
     camera.projection = CAMERA_PERSPECTIVE;
-    SetCameraMode(camera, CAMERA_FIRST_PERSON);
+    SetCameraMode(camera, CAMERA_FREE);
 
     Vector3 cubePosition = { 0.0f, 0.0f, 0.0f };
 
@@ -38,7 +40,7 @@ int main(void)
     auto gravity = std::make_shared<ParticleGravity>(glm::vec3(0.0, -20.0f, 0.0));
     auto drag = std::make_shared<ParticleDrag>(5.0, 1.0);
 
-    EnableCursor();
+//    EnableCursor();
 
     // Game Loop
     while (!WindowShouldClose())    // Detect window close button or ESC key
@@ -53,12 +55,33 @@ int main(void)
 
         if (IsKeyPressed(KEY_SPACE))
         {
-            auto particle = std::make_shared<Particle>();
-            particle->set_mass(200.0f);
-            registry.add(particle, gravity);
-            registry.add(particle, drag);
+//            auto particle = std::make_shared<Particle>();
+//            particle->set_mass(200.0f);
+//            registry.add(particle, gravity);
+//            registry.add(particle, drag);
+//
+//            particles.push_back(particle);
+            auto particleA = std::make_shared<Particle>();
 
-            particles.push_back(particle);
+            auto particleB = std::make_shared<Particle>();
+            particleA->set_mass(20.0f);
+            particleB->set_inverse_mass(0.0f);
+            //particleB->set_mass(10.0f);
+            particleB->set_position(glm::vec3(5.0f, 0.0f, 0.0f));
+            registry.add(particleA, gravity);
+            registry.add(particleB, gravity);
+            registry.add(particleA, drag);
+            registry.add(particleB, drag);
+            auto springForce = std::make_shared<ParticleAnchoredSpring>(glm::vec3(5.0f, 0.0f, 0.0f), 400.0f, 2.0f);
+            //auto springForce = std::make_shared<ParticleSpring>(particleB, 200.0f, 2.0f);
+            registry.add(particleA, springForce);
+            particles.push_back(particleA);
+            particles.push_back(particleB);
+
+        }
+
+        if (IsKeyPressed(KEY_Z)) {
+            camera.target = {0.0f, 0.0f, 0.0f};
         }
 
         registry.update_forces(1.0f / 60.0f);
@@ -75,9 +98,10 @@ int main(void)
 
         EndMode3D();
 
-        DrawText("First person camera default controls:", 20, 20, 10, BLACK);
-        DrawText("- Move with keys: W, A, S, D", 40, 40, 10, DARKGRAY);
-        DrawText("- Mouse move to look around", 40, 60, 10, DARKGRAY);
+        DrawText("Free camera controls:", 20, 20, 10, BLACK);
+        DrawText("- Hold middle mouse button and drag to pan.", 40, 40, 10, DARKGRAY);
+        DrawText("- Hold Alt + Middle mouse button and drag to rotate view.", 40, 60, 10, DARKGRAY);
+        DrawText("- Press Z to reset camera position.", 40, 80, 10, DARKGRAY);
 
         EndDrawing();
     }

@@ -63,3 +63,8 @@ void Particle::add_force(const glm::vec3 &p_force)
 {
     m_force_accum += p_force;
 }
+
+void Particle::set_position(const glm::vec3 &p_position)
+{
+    m_position = p_position;
+}

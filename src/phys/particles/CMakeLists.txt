@@ -4,4 +4,6 @@ target_sources(phys_demo
         force_registry.cpp
         particle.cpp
         particle_gravity.cpp
-        particle_drag.cpp)
+        particle_drag.cpp
+        particle_spring.cpp
+        particle_anchored_spring.cpp)
