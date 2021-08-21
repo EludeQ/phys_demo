@@ -6,4 +6,5 @@ target_sources(phys_demo
         particle_gravity.cpp
         particle_drag.cpp
         particle_spring.cpp
-        particle_anchored_spring.cpp)
+        particle_anchored_spring.cpp
+        particle_buoyancy.cpp)

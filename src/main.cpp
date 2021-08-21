@@ -10,6 +10,7 @@
 #include "phys/particles/particle_spring.h"
 #include "phys/particles/particle_anchored_spring.h"
 #include "phys/particles/particle_force_registry.h"
+#include "phys/particles/particle_buoyancy.h"
 
 int main(void)
 {
@@ -63,20 +64,23 @@ int main(void)
 //            particles.push_back(particle);
             auto particleA = std::make_shared<Particle>();
 
-            auto particleB = std::make_shared<Particle>();
+            //auto particleB = std::m   ake_shared<Particle>();
             particleA->set_mass(20.0f);
-            particleB->set_inverse_mass(0.0f);
+            //particleB->set_inverse_mass(0.0f);
             //particleB->set_mass(10.0f);
-            particleB->set_position(glm::vec3(5.0f, 0.0f, 0.0f));
+            //particleB->set_position(glm::vec3(5.0f, 0.0f, 0.0f));
             registry.add(particleA, gravity);
-            registry.add(particleB, gravity);
+            //registry.add(particleB, gravity);
             registry.add(particleA, drag);
-            registry.add(particleB, drag);
-            auto springForce = std::make_shared<ParticleAnchoredSpring>(glm::vec3(5.0f, 0.0f, 0.0f), 400.0f, 2.0f);
+           // registry.add(particleB, drag);
+            //auto springForce = std::make_shared<ParticleAnchoredSpring>(glm::vec3(5.0f, 0.0f, 0.0f), 400.0f, 2.0f);
             //auto springForce = std::make_shared<ParticleSpring>(particleB, 200.0f, 2.0f);
-            registry.add(particleA, springForce);
+            //registry.add(particleA, springForce);
+//            auto buoyancyForce = ParticleBuoyancy(-20.0f, 5.0f, -10.0f);
+            auto buoyancyForce = std::make_shared<ParticleBuoyancy>(-10.05f, 5.0f, -10.0f);
+            registry.add(particleA, buoyancyForce);
             particles.push_back(particleA);
-            particles.push_back(particleB);
+           // particles.push_back(particleB);
 
         }
 
@@ -85,6 +89,8 @@ int main(void)
         }
 
         registry.update_forces(1.0f / 60.0f);
+
+        DrawPlane({0.0f, -10.05f, 0.0f}, {30.0f, 30.0f}, BLUE);
 
         for (auto& particle : particles)
         {
