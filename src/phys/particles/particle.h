@@ -5,7 +5,7 @@
 #pragma once
 
 #include "glm/vec3.hpp"
-#include "precision.h"
+#include "../precision.h"
 
 class Particle
 {

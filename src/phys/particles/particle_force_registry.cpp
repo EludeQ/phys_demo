@@ -4,8 +4,6 @@
 
 #include "particle_force_registry.h"
 
-#include <iostream>
-
 void ParticleForceRegistry::add(const std::shared_ptr<Particle>& p_particle, const std::shared_ptr<ParticleForceGenerator>& p_fg)
 {
     Registration registration;

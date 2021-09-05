@@ -4,13 +4,11 @@
 #include <iostream>
 #include <memory>
 
-#include "phys/particles/particle.h"
-#include "phys/particles/particle_gravity.h"
-#include "phys/particles/particle_drag.h"
-#include "phys/particles/particle_spring.h"
-#include "phys/particles/particle_anchored_spring.h"
-#include "phys/particles/particle_force_registry.h"
-#include "phys/particles/particle_buoyancy.h"
+#include "phys/rigidbody/force_generator.h"
+#include "phys/rigidbody/force_registry.h"
+#include "phys/rigidbody/rigid_body.h"
+#include "phys/rigidbody/gravity.h"
+#include "phys/collision/bvh.h"
 
 int main(void)
 {
@@ -35,11 +33,11 @@ int main(void)
 
     SetTargetFPS(60);
 
-    std::vector<std::shared_ptr<Particle>> particles;
+    std::vector<std::shared_ptr<RigidBody>> bodies;
 
-    ParticleForceRegistry registry;
-    auto gravity = std::make_shared<ParticleGravity>(glm::vec3(0.0, -20.0f, 0.0));
-    auto drag = std::make_shared<ParticleDrag>(5.0, 1.0);
+    ForceRegistry registry;
+    auto gravity = std::make_shared<Gravity>(glm::vec3(0.0, -20.0f, 0.0));
+//    auto drag = std::make_shared<ParticleDrag>(5.0, 1.0);
 
 //    EnableCursor();
 
@@ -54,48 +52,28 @@ int main(void)
 
         BeginMode3D(camera);
 
+        for (auto& body : bodies)
+        {
+            body->clear_accumulators();
+            body->calculate_derived_data();
+        }
+
         if (IsKeyPressed(KEY_SPACE))
         {
-//            auto particle = std::make_shared<Particle>();
-//            particle->set_mass(200.0f);
-//            registry.add(particle, gravity);
-//            registry.add(particle, drag);
-//
-//            particles.push_back(particle);
-            auto particleA = std::make_shared<Particle>();
-
-            //auto particleB = std::m   ake_shared<Particle>();
-            particleA->set_mass(20.0f);
-            //particleB->set_inverse_mass(0.0f);
-            //particleB->set_mass(10.0f);
-            //particleB->set_position(glm::vec3(5.0f, 0.0f, 0.0f));
-            registry.add(particleA, gravity);
-            //registry.add(particleB, gravity);
-            registry.add(particleA, drag);
-           // registry.add(particleB, drag);
-            //auto springForce = std::make_shared<ParticleAnchoredSpring>(glm::vec3(5.0f, 0.0f, 0.0f), 400.0f, 2.0f);
-            //auto springForce = std::make_shared<ParticleSpring>(particleB, 200.0f, 2.0f);
-            //registry.add(particleA, springForce);
-//            auto buoyancyForce = ParticleBuoyancy(-20.0f, 5.0f, -10.0f);
-            auto buoyancyForce = std::make_shared<ParticleBuoyancy>(-10.05f, 5.0f, -10.0f);
-            registry.add(particleA, buoyancyForce);
-            particles.push_back(particleA);
-           // particles.push_back(particleB);
 
         }
 
-        if (IsKeyPressed(KEY_Z)) {
+        if (IsKeyPressed(KEY_Z))
+        {
             camera.target = {0.0f, 0.0f, 0.0f};
         }
 
         registry.update_forces(1.0f / 60.0f);
 
-        DrawPlane({0.0f, -10.05f, 0.0f}, {30.0f, 30.0f}, BLUE);
-
-        for (auto& particle : particles)
+        for (auto& body : bodies)
         {
-            particle->integrate(1.0f / 60.0f);
-            Vector3 pos{particle->get_position().x, particle->get_position().y, particle->get_position().z};
+            body->integrate(1.0f / 60.0f);
+            Vector3 pos{body->get_position().x, body->get_position().y, body->get_position().z};
             DrawCube(pos, 1.0f, 1.0f, 1.0f, RED);
             DrawCubeWires(pos, 1.0f, 1.0f, 1.0f, RED);
         }

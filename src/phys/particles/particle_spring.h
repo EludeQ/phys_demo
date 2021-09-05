@@ -7,7 +7,7 @@
 #include <utility>
 
 #include "particle_force_generator.h"
-#include "precision.h"
+#include "../precision.h"
 
 class ParticleSpring : public ParticleForceGenerator
 {
