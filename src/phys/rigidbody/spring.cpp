@@ -11,8 +11,8 @@ void Spring::update_force(std::shared_ptr<RigidBody> p_body, real p_duration)
 
     glm::vec3 force = lws - ows;
 
-    real magnitude = force.length();
-    magnitude = abs(magnitude - m_rest_length);
+    real magnitude = glm::length(force);
+    magnitude = std::abs(magnitude - m_rest_length);
     magnitude *= m_spring_constant;
 
     glm::normalize(force);

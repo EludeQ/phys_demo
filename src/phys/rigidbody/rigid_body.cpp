@@ -14,7 +14,7 @@ static inline void transform_inertia_tensor(glm::mat3 &p_iitWorld, const glm::ma
 
 static inline void calculate_transform_matrix(glm::mat4 &p_transform_matrix, const glm::vec3 &p_position, const glm::quat &p_orientation) 
 {
-    p_transform_matrix = glm::translate(glm::mat4(), p_position) * glm::mat4_cast(p_orientation);
+    p_transform_matrix = glm::translate(glm::identity<glm::mat4>(), p_position) * glm::mat4_cast(p_orientation);
 }
 
 void RigidBody::calculate_derived_data()
@@ -87,5 +87,13 @@ void RigidBody::set_mass(const real &p_mass)
 
 glm::vec3 RigidBody::to_global(glm::vec3 p_point)
 {
-    return glm::vec3(glm::vec4(p_point, 0.0f) * m_transformMatrix);
+    glm::vec4 point = glm::vec4(p_point, 1.0f);
+    glm::vec4 transformed = m_transformMatrix * point;
+    return glm::vec3(transformed);
+}
+
+void RigidBody::set_damping(const real &p_linearDamping, const real &p_angularDamping)
+{
+    m_linearDamping = p_linearDamping;
+    m_angularDamping = p_angularDamping;
 }

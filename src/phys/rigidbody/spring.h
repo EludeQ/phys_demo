@@ -29,5 +29,8 @@ public:
         : m_connection_point(p_local_connection_point), m_other(p_other), m_other_connection_point(p_other_connection_point), m_spring_constant(p_spring_constant), m_rest_length(p_rest_length) {}
 
     void update_force(std::shared_ptr<RigidBody> p_body, real p_duration) override;
+
+    glm::vec3 get_connection_point() { return m_connection_point; }
+    glm::vec3 get_other_connection_point() { return m_other_connection_point; }
 };
 
